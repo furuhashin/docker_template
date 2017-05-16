@@ -7,13 +7,13 @@ services:
     ports:
       - "3306:3306"
     volumes:
-     - ../data:/var/lib/mysql
+     - ./data:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: root
 
   # web
   web01:
-    build: ./apache
+    build: ./docker/apache
     image: web:24
     privileged: true
     cap_add:
@@ -23,6 +23,6 @@ services:
     links:
       - "db01:db01"
     volumes:
-      - ../www:/var/www/html
-      - ../logs:/var/log/httpd
+      - ./www:/var/www/html
+      - ./logs:/var/log/httpd
       #- ../files/apache_conf/00_virtualhost.conf:/etc/httpd/conf.d/00_virtualhost.conf
