@@ -1,6 +1,6 @@
 version: '2'
 services:
-  # mysql
+  # mysql (ビルドしたら名前を付ける。イメージの上書きを防ぐ)
   db01:
     restart: always
     image: mysql:5.6
@@ -8,13 +8,14 @@ services:
       - "3306:3306"
     volumes:
      - ./data:/var/lib/mysql
+     - ./data/mysql_conf.d:/etc/mysql/conf.d
     environment:
       MYSQL_ROOT_PASSWORD: root
 
   # web
   web01:
     build: ./docker/apache
-    image: web:24
+    image: sample_web:centos6
     privileged: true
     cap_add:
       - SYS_ADMIN
